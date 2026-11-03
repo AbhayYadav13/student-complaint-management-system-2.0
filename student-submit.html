@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lodge Complaint | Student Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top System Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div>GROUP 7 &bull; Student Grievance Portal (Student Access Area)</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="student-dashboard.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">
+          <h1>Student Portal</h1>
+          <p>Grievance Lodging & Status Tracking</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="student-dashboard.html" class="nav-link">My Dashboard</a></li>
+        <li><a href="student-submit.html" class="nav-link active">Lodge Complaint</a></li>
+        <li><a href="student-track.html" class="nav-link">Track Complaint</a></li>
+        <li><a href="index.html" class="nav-link">Main Portal</a></li>
+      </ul>
+
+      <div id="user-session-widget"></div>
+    </div>
+  </header>
+
+  <!-- Submit Main -->
+  <main class="main-content">
+    <div class="container" style="max-width: 840px;">
+
+      <div class="page-header">
+        <span class="portal-badge badge-student-portal">Modules 2 & 3 &bull; Lodging Gateway</span>
+        <h2>Lodge a Grievance</h2>
+        <p>Review your student profile details and enter your grievance facts. A unique Complaint ID will be automatically generated upon submission.</p>
+      </div>
+
+      <div class="card">
+        <form id="student-complaint-form">
+
+          <!-- Module 2: Student Details (Pre-filled from session) -->
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 1.15rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 16px; border-bottom: 2px solid var(--student-light); padding-bottom: 8px;">
+            <span>👤</span>
+            <span>Module 2: Student Profile Details</span>
+          </div>
+
+          <div class="grid-cols-2">
+            <div class="form-group">
+              <label for="student_name">Student Full Name</label>
+              <input type="text" id="student_name" class="form-control" readonly style="background: var(--bg-alt); font-weight: 600;">
+            </div>
+
+            <div class="form-group">
+              <label for="student_roll">University Roll Number</label>
+              <input type="text" id="student_roll" class="form-control" readonly style="background: var(--bg-alt); font-weight: 600;">
+            </div>
+          </div>
+
+          <div class="grid-cols-2">
+            <div class="form-group">
+              <label for="student_course">Enrolled Course / Program</label>
+              <input type="text" id="student_course" class="form-control" readonly style="background: var(--bg-alt);">
+            </div>
+
+            <div class="form-group">
+              <label for="student_email">Registered Email Address</label>
+              <input type="email" id="student_email" class="form-control" readonly style="background: var(--bg-alt);">
+            </div>
+          </div>
+
+          <!-- Module 3: Complaint Form -->
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 1.15rem; font-weight: 700; color: var(--primary-navy); margin: 24px 0 16px 0; border-bottom: 2px solid var(--student-light); padding-bottom: 8px;">
+            <span>📋</span>
+            <span>Module 3: Grievance Particulars</span>
+          </div>
+
+          <div class="form-group">
+            <label for="complaint_subject">Complaint Subject / Title <span class="required">*</span></label>
+            <input type="text" id="complaint_subject" class="form-control" placeholder="e.g. Malfunctioning Projector and AC in Lecture Hall 204" required>
+          </div>
+
+          <div class="form-group">
+            <label for="complaint_category">Complaint Category <span class="required">*</span></label>
+            <select id="complaint_category" class="form-control" required>
+              <option value="">-- Select Relevant Category --</option>
+              <option value="Academic">Academic (Lectures, Faculty, Practical Labs, Exams)</option>
+              <option value="Infrastructure & Lab">Infrastructure & Lab (Computers, Wi-Fi, Desks, Projectors)</option>
+              <option value="Hostel & Mess">Hostel & Mess (Room, Hygiene, Drinking Water, Food)</option>
+              <option value="Library">Library & Digital Credentials (Proxy, Journals, Book Lending)</option>
+              <option value="Transportation">Transportation & College Bus Routes</option>
+              <option value="Administration & Fees">Administration, Accounts & Fee Receipts</option>
+              <option value="Other">Other Institutional Grievances</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="complaint_description">Detailed Complaint Description <span class="required">*</span></label>
+            <textarea id="complaint_description" class="form-control" rows="5" placeholder="Please describe the exact issue, location, dates observed, and any earlier resolution steps taken..." required></textarea>
+            <div class="form-hint">Providing specific facts speeds up administrative review and assignment.</div>
+          </div>
+
+          <div style="background: var(--bg-alt); padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;">
+            💡 <strong>Unique Complaint ID:</strong> A tracking number formatted as <code>CMP-2026-XXXX</code> will be assigned automatically and logged under your roll number.
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <button type="submit" id="submit-complaint-btn" class="btn btn-student" style="flex: 2; padding: 12px;">
+              🚀 Lodge Complaint & Generate ID
+            </button>
+            <a href="student-dashboard.html" class="btn btn-secondary" style="flex: 1; padding: 12px;">
+              Cancel
+            </a>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Success Confirmation Modal -->
+  <div id="student-success-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header" style="background: var(--student-light);">
+        <h3 style="color: var(--student-primary);">🎉 Complaint Submitted Successfully!</h3>
+        <button class="modal-close" onclick="closeStudentReceiptModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+          Your grievance has been officially registered with the College Grievance Cell. Please preserve your unique Complaint ID:
+        </p>
+
+        <div style="background: #ffffff; border: 2px dashed var(--student-primary); border-radius: var(--radius-md); padding: 16px; text-align: center; margin-bottom: 18px;">
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Assigned Complaint ID</div>
+          <div id="receipt-id" style="font-size: 1.8rem; font-weight: 800; color: var(--student-primary); font-family: monospace; margin: 4px 0;">CMP-XXXX</div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="copyReceiptId()">📋 Copy ID</button>
+        </div>
+
+        <div style="background: var(--bg-alt); padding: 14px; border-radius: var(--radius-md); font-size: 0.88rem;">
+          <div style="margin-bottom: 6px;"><strong>Subject:</strong> <span id="receipt-subject">-</span></div>
+          <div style="margin-bottom: 6px;"><strong>Category:</strong> <span id="receipt-category">-</span></div>
+          <div style="margin-bottom: 6px;"><strong>Initial Status:</strong> <span id="receipt-status">-</span></div>
+          <div><strong>Date Lodged:</strong> <span id="receipt-date">-</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="receipt-track-btn" href="student-track.html" class="btn btn-student">🔍 Track Progress</a>
+        <a href="student-dashboard.html" class="btn btn-secondary">Go to Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+        &copy; 2026 Student Complaint Management System &bull; Student Portal &bull; Group 7 Project Submission
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>

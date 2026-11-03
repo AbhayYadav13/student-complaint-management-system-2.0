@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search & Audit Complaints | Management Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top System Bar -->
+  <div class="top-bar" style="background: #1e1b4b;">
+    <div class="container">
+      <div>GROUP 7 &bull; Institutional Grievance Redressal (Administrative Management Area)</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="admin-dashboard.html" class="brand">
+        <div class="brand-icon admin-theme">🛡️</div>
+        <div class="brand-text">
+          <h1>Management Portal</h1>
+          <p>Institutional Grievance Governance</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="admin-dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="admin-records.html" class="nav-link">Complaint Records</a></li>
+        <li><a href="admin-update.html" class="nav-link">Update Status</a></li>
+        <li><a href="admin-search.html" class="nav-link admin-active">Search & Audit</a></li>
+        <li><a href="index.html" class="nav-link">Main Portal</a></li>
+      </ul>
+
+      <div id="user-session-widget"></div>
+    </div>
+  </header>
+
+  <!-- Search Main (Module 6) -->
+  <main class="main-content">
+    <div class="container" style="max-width: 860px;">
+
+      <div class="page-header">
+        <span class="portal-badge badge-admin-portal">Module 6 &bull; Institutional Audit</span>
+        <h2>Search & Audit Complaint</h2>
+        <p>Query any complaint by <strong>Complaint ID</strong> to review historical updates, student identification, and departmental assignments.</p>
+      </div>
+
+      <!-- Search Box Card -->
+      <div class="card" style="margin-bottom: 24px;">
+        <form id="search-complaint-form">
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label for="search_complaint_id_input">Enter Complaint Tracking ID <span class="required">*</span></label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input type="text" id="search_complaint_id_input" class="form-control admin-focus" style="flex: 3; font-family: monospace; font-size: 1.05rem;" placeholder="e.g. CMP-2026-1001" required>
+              <button type="submit" id="search-submit-btn" class="btn btn-admin" style="flex: 1; min-width: 170px;">
+                🔍 Lookup Record
+              </button>
+            </div>
+          </div>
+          <div class="form-hint">
+            💡 Sample Demo IDs: 
+            <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillAdmin('CMP-2026-1001')">CMP-2026-1001</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillAdmin('CMP-2026-1002')">CMP-2026-1002</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillAdmin('CMP-2026-1004')">CMP-2026-1004</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Not Found Card -->
+      <div id="search-not-found-box" class="card" style="display: none; border-left: 5px solid var(--danger); text-align: center; padding: 36px 20px;">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🔎</div>
+        <h3 style="color: var(--danger); margin-bottom: 6px;">Complaint Not Found</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          No grievance record matches ID <strong id="not-found-id-label"></strong>.
+        </p>
+        <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 8px;">
+          Check the <a href="admin-records.html" style="color: var(--admin-primary); font-weight: 600;">All Records ledger</a> for the full list of campus submissions.
+        </p>
+      </div>
+
+      <!-- Search Result Display Card -->
+      <div id="search-result-display" class="card" style="display: none;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Grievance Audit Record</div>
+            <h3 id="sr-id" style="font-size: 1.6rem; font-family: monospace; color: var(--primary-navy); font-weight: 800;">CMP-XXXX</h3>
+          </div>
+          <div id="sr-status-badge"></div>
+        </div>
+
+        <!-- Progress Stepper -->
+        <div style="margin-bottom: 28px;">
+          <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Resolution Status Stepper</h4>
+          <div class="status-tracker">
+            <div class="tracker-progress-line" id="tracker-line" style="width: 0%; background: var(--admin-primary);"></div>
+            
+            <div class="tracker-step" id="step-1">
+              <div class="tracker-bubble">1</div>
+              <div class="tracker-label">Submitted &bull; Pending</div>
+            </div>
+
+            <div class="tracker-step" id="step-2">
+              <div class="tracker-bubble">2</div>
+              <div class="tracker-label">Assigned &bull; In Progress</div>
+            </div>
+
+            <div class="tracker-step" id="step-3">
+              <div class="tracker-bubble">3</div>
+              <div class="tracker-label">Resolved & Rectified</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Info -->
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 700; color: var(--admin-primary); margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
+          <span>👤</span>
+          <span>Complainant Student Details</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; background: var(--bg-alt); padding: 14px; border-radius: var(--radius-md); margin-bottom: 20px;">
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Name</div>
+            <div id="sr-student-name" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Roll Number</div>
+            <div id="sr-roll-no" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Course</div>
+            <div id="sr-course" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Email</div>
+            <div id="sr-email" style="font-weight: 600;">-</div>
+          </div>
+        </div>
+
+        <!-- Complaint Info -->
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 700; color: var(--admin-primary); margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
+          <span>📋</span>
+          <span>Complaint Facts</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; background: var(--bg-alt); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px;">
+          <div style="grid-column: 1 / -1;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Subject</div>
+            <div id="sr-subject" style="font-weight: 700; font-size: 1.05rem; color: var(--primary-navy);">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Category</div>
+            <div id="sr-category" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Date Lodged</div>
+            <div id="sr-created" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Last Status Update</div>
+            <div id="sr-updated" style="font-weight: 600;">-</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">Full Description:</div>
+          <div id="sr-description" style="background: var(--bg-alt); padding: 14px; border-radius: var(--radius-md); font-size: 0.92rem; white-space: pre-wrap; line-height: 1.6;"></div>
+        </div>
+
+        <!-- Remarks -->
+        <div id="sr-remarks-container" style="display: none; margin-top: 18px; padding: 16px; border-left: 4px solid var(--admin-primary); background: var(--admin-light); border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--admin-primary); margin-bottom: 4px;">Official Administration Action Log:</div>
+          <div id="sr-remarks-text" style="font-size: 0.92rem; color: var(--text-main);"></div>
+        </div>
+
+        <!-- Action Row -->
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; gap: 12px; flex-wrap: wrap;">
+          <a id="sr-admin-update-link" href="admin-update.html" class="btn btn-admin">
+            ✏️ Update Status for this Complaint
+          </a>
+          <button type="button" class="btn btn-secondary" onclick="printReceipt()">
+            🖨️ Print Audit Sheet
+          </button>
+          <a href="admin-records.html" class="btn btn-secondary">
+            Back to All Records
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+        &copy; 2026 Student Complaint Management System &bull; Module 6 Audit &bull; Group 7 Project Submission
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
+  <script>
+    function quickFillAdmin(id) {
+      document.getElementById('search_complaint_id_input').value = id;
+      executeComplaintSearch(id);
+    }
+  </script>
+</body>
+</html>

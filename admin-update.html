@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Complaint Status | Management Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top System Bar -->
+  <div class="top-bar" style="background: #1e1b4b;">
+    <div class="container">
+      <div>GROUP 7 &bull; Institutional Grievance Redressal (Administrative Management Area)</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="admin-dashboard.html" class="brand">
+        <div class="brand-icon admin-theme">🛡️</div>
+        <div class="brand-text">
+          <h1>Management Portal</h1>
+          <p>Institutional Grievance Governance</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="admin-dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="admin-records.html" class="nav-link">Complaint Records</a></li>
+        <li><a href="admin-update.html" class="nav-link admin-active">Update Status</a></li>
+        <li><a href="admin-search.html" class="nav-link">Search & Audit</a></li>
+        <li><a href="index.html" class="nav-link">Main Portal</a></li>
+      </ul>
+
+      <div id="user-session-widget"></div>
+    </div>
+  </header>
+
+  <!-- Update Main (Module 5) -->
+  <main class="main-content">
+    <div class="container" style="max-width: 860px;">
+
+      <div class="page-header">
+        <span class="portal-badge badge-admin-portal">Module 5 &bull; Resolution Workflow</span>
+        <h2>Update Complaint Status</h2>
+        <p>Transition complaints through administrative phases: <strong>Pending</strong> &rarr; <strong>In Progress</strong> &rarr; <strong>Resolved</strong>.</p>
+      </div>
+
+      <!-- Complaint Selector Card -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="admin-complaint-picker">Select an Existing Complaint from Database:</label>
+          <select id="admin-complaint-picker" class="form-control admin-focus">
+            <option value="">-- Choose a Complaint to Load --</option>
+          </select>
+          <div class="form-hint">Loading a complaint will preview its student and category facts below.</div>
+        </div>
+      </div>
+
+      <!-- Preview Box (Populated on selection) -->
+      <div id="admin-update-preview" class="card" style="display: none; margin-bottom: 24px; border-left: 5px solid var(--admin-primary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Selected Complaint:</span>
+            <span id="p-id" class="complaint-id-tag" style="background: var(--admin-light); color: var(--admin-primary); font-size: 1.05rem; margin-left: 6px;">CMP-XXXX</span>
+          </div>
+          <div id="p-status"></div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; background: var(--bg-alt); padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 12px;">
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Student</div>
+            <div id="p-student" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Course</div>
+            <div id="p-course" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Category</div>
+            <div id="p-category" style="font-weight: 600;">-</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Subject:</div>
+          <div id="p-subject" style="font-weight: 700; color: var(--primary-navy); margin-bottom: 6px;">-</div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Description:</div>
+          <div id="p-desc" style="font-size: 0.9rem; color: var(--text-main); background: var(--bg-alt); padding: 10px 14px; border-radius: var(--radius-sm); margin-top: 4px;">-</div>
+        </div>
+      </div>
+
+      <!-- Update Status Form -->
+      <div class="card">
+        <form id="admin-dedicated-update-form">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 1.15rem; font-weight: 700; color: var(--admin-primary); margin-bottom: 18px; border-bottom: 2px solid var(--admin-light); padding-bottom: 8px;">
+            <span>✏️</span>
+            <span>Module 5: Change Status & Post Official Action Note</span>
+          </div>
+
+          <div class="form-group">
+            <label for="update-complaint-id-input">Complaint ID <span class="required">*</span></label>
+            <input type="text" id="update-complaint-id-input" class="form-control admin-focus" placeholder="e.g. CMP-2026-1001" required>
+          </div>
+
+          <div class="form-group">
+            <label for="update-status-choice">New Resolution Status <span class="required">*</span></label>
+            <select id="update-status-choice" class="form-control admin-focus" required>
+              <option value="Pending">⏳ Pending (Awaiting Department Verification)</option>
+              <option value="In Progress">🔄 In Progress (Department Assigned / Maintenance Underway)</option>
+              <option value="Resolved">✓ Resolved (Issue Rectified & Verified)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="update-remarks-input">Official Action Log & Resolution Remarks</label>
+            <textarea id="update-remarks-input" class="form-control admin-focus" rows="4" placeholder="Detail the specific corrective actions taken, personnel assigned, or completion summary..."></textarea>
+            <div class="form-hint">These notes will be instantly visible to the student when tracking their complaint status.</div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button type="submit" id="save-dedicated-update-btn" class="btn btn-admin" style="flex: 2; padding: 12px;">
+              💾 Save Status Update
+            </button>
+            <a href="admin-records.html" class="btn btn-secondary" style="flex: 1; padding: 12px;">
+              Back to Records
+            </a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+        &copy; 2026 Student Complaint Management System &bull; Module 5 Status Management &bull; Group 7 Project Submission
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

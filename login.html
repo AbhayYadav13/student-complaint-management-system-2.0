@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Access & Login | Student Complaint Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);">
+
+  <!-- Top System Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div>GROUP 7 &bull; Student Grievance Redressal & Institutional Management System</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">
+          <h1>Student Grievance Portal</h1>
+          <p>Group 7 Dual-Portal System</p>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="student-track.html" class="nav-link">Track Complaint</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Login Main -->
+  <main class="main-content" style="display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+    <div class="card" style="width: 100%; max-width: 520px; box-shadow: var(--shadow-lg); border-radius: var(--radius-lg); padding: 32px;">
+
+      <!-- Tab Navigation -->
+      <div class="tab-nav">
+        <button id="tab-student" class="tab-btn active student-tab">
+          👤 Student Login
+        </button>
+        <button id="tab-admin" class="tab-btn admin-tab">
+          🛡️ Management Login
+        </button>
+        <button id="tab-register" class="tab-btn student-tab">
+          ✍️ New Student Sign Up
+        </button>
+      </div>
+
+      <!-- 1. Student Login Section -->
+      <div id="student-login-section">
+        <div style="margin-bottom: 20px;">
+          <span class="portal-badge badge-student-portal">Student Access</span>
+          <h3 style="font-size: 1.3rem; color: var(--primary-navy); margin-top: 4px;">Log in to Student Portal</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">Submit grievances and view the real-time status of your past complaints.</p>
+        </div>
+
+        <form id="student-login-form">
+          <div class="form-group">
+            <label for="stud_roll_no">Student Roll Number <span class="required">*</span></label>
+            <input type="text" id="stud_roll_no" class="form-control" placeholder="e.g. 2026CSE014" required>
+            <div class="form-hint">Enter your enrolled college roll number.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="stud_password">Password <span class="required">*</span></label>
+            <input type="password" id="stud_password" class="form-control" placeholder="Enter student password" required>
+          </div>
+
+          <button type="submit" id="stud-login-btn" class="btn btn-student" style="width: 100%; padding: 12px; margin-top: 8px;">
+            Log In as Student &rarr;
+          </button>
+        </form>
+
+        <div style="margin-top: 20px; padding: 12px; background: var(--student-light); border-radius: var(--radius-md); font-size: 0.85rem;">
+          <div style="font-weight: 700; color: var(--student-primary); margin-bottom: 4px;">💡 Demo Student Account:</div>
+          <div>Roll No: <code>2026CSE014</code> | Password: <code>student123</code></div>
+          <button type="button" onclick="fillDemoStudent()" class="btn btn-secondary btn-sm" style="margin-top: 8px; width: 100%;">
+            Quick-Fill Demo Student Credentials
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Management / Admin Login Section -->
+      <div id="admin-login-section" style="display: none;">
+        <div style="margin-bottom: 20px;">
+          <span class="portal-badge badge-admin-portal">Administrative Staff</span>
+          <h3 style="font-size: 1.3rem; color: var(--admin-primary); margin-top: 4px;">Management Portal Login</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">Authorized for Chief Grievance Officers, Department Heads, and Wardens.</p>
+        </div>
+
+        <form id="admin-login-form">
+          <div class="form-group">
+            <label for="admin_username">Management Username <span class="required">*</span></label>
+            <input type="text" id="admin_username" class="form-control admin-focus" placeholder="e.g. admin" required>
+          </div>
+
+          <div class="form-group">
+            <label for="admin_password">Management Password <span class="required">*</span></label>
+            <input type="password" id="admin_password" class="form-control admin-focus" placeholder="Enter administrator password" required>
+          </div>
+
+          <button type="submit" id="admin-login-btn" class="btn btn-admin" style="width: 100%; padding: 12px; margin-top: 8px;">
+            Log In to Management Portal &rarr;
+          </button>
+        </form>
+
+        <div style="margin-top: 20px; padding: 12px; background: var(--admin-light); border-radius: var(--radius-md); font-size: 0.85rem;">
+          <div style="font-weight: 700; color: var(--admin-primary); margin-bottom: 4px;">💡 Demo Administrator Account:</div>
+          <div>Username: <code>admin</code> | Password: <code>admin123</code></div>
+          <button type="button" onclick="fillDemoAdmin()" class="btn btn-secondary btn-sm" style="margin-top: 8px; width: 100%;">
+            Quick-Fill Demo Administrator Credentials
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Student Registration Section -->
+      <div id="register-section" style="display: none;">
+        <div style="margin-bottom: 20px;">
+          <span class="portal-badge badge-student-portal">New Student Enrolment</span>
+          <h3 style="font-size: 1.3rem; color: var(--student-primary); margin-top: 4px;">Register for Complaint Portal</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">Create your student account to lodge grievances and receive updates.</p>
+        </div>
+
+        <form id="student-register-form">
+          <div class="form-group">
+            <label for="reg_name">Full Name <span class="required">*</span></label>
+            <input type="text" id="reg_name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reg_roll_no">Student Roll Number <span class="required">*</span></label>
+            <input type="text" id="reg_roll_no" class="form-control" placeholder="e.g. 2026CSE099" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reg_course">Course / Degree Program <span class="required">*</span></label>
+            <select id="reg_course" class="form-control" required>
+              <option value="">-- Choose Program --</option>
+              <option value="B.Tech Computer Science & Engineering">B.Tech Computer Science & Engineering</option>
+              <option value="B.Tech Information Technology">B.Tech Information Technology</option>
+              <option value="B.Tech Electronics & Communication">B.Tech Electronics & Communication</option>
+              <option value="B.Tech Mechanical Engineering">B.Tech Mechanical Engineering</option>
+              <option value="Master of Computer Applications (MCA)">Master of Computer Applications (MCA)</option>
+              <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reg_email">Email Address <span class="required">*</span></label>
+            <input type="email" id="reg_email" class="form-control" placeholder="e.g. student@college.edu" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reg_password">Create Password <span class="required">*</span></label>
+            <input type="password" id="reg_password" class="form-control" placeholder="Choose a secure password" required minlength="4">
+          </div>
+
+          <button type="submit" id="reg-submit-btn" class="btn btn-student" style="width: 100%; padding: 12px; margin-top: 8px;">
+            Create Student Account & Log In &rarr;
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+        &copy; 2026 Student Complaint Management System &bull; Group 7 Authentication Interface
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal Dashboard | Group 7</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top System Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div>GROUP 7 &bull; Student Grievance Portal (Student Access Area)</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="student-dashboard.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">
+          <h1>Student Portal</h1>
+          <p>Grievance Lodging & Status Tracking</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="student-dashboard.html" class="nav-link active">My Dashboard</a></li>
+        <li><a href="student-submit.html" class="nav-link">Lodge Complaint</a></li>
+        <li><a href="student-track.html" class="nav-link">Track Complaint</a></li>
+        <li><a href="index.html" class="nav-link">Main Portal</a></li>
+      </ul>
+
+      <div id="user-session-widget"></div>
+    </div>
+  </header>
+
+  <!-- Student Main Content -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Student Welcome Banner -->
+      <div style="background: linear-gradient(135deg, #1e3a8a, #2563eb); color: #ffffff; border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <span class="portal-badge" style="background: rgba(255,255,255,0.2); color: #ffffff;">Enrolled Student Account</span>
+          <h2 style="font-size: 1.8rem; margin: 4px 0;">Welcome, <span id="student-greeting-name">Student</span></h2>
+          <p id="student-greeting-roll" style="opacity: 0.9; font-size: 0.95rem;">Roll Number • Course</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="student-submit.html" class="btn btn-secondary">
+            ✍️ Lodge New Complaint
+          </a>
+          <a href="student-track.html" class="btn btn-secondary">
+            🔍 Track by ID
+          </a>
+        </div>
+      </div>
+
+      <!-- Student Personal Metrics -->
+      <section style="margin-bottom: 32px;">
+        <h3 style="font-size: 1.25rem; color: var(--primary-navy); margin-bottom: 16px;">My Complaints Summary</h3>
+        <div class="grid-cols-4">
+          <div class="stat-card stat-total">
+            <div class="stat-icon">📑</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stud-stat-total">0</div>
+              <div class="stat-label">Total Lodged by Me</div>
+            </div>
+          </div>
+
+          <div class="stat-card stat-pending">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stud-stat-pending">0</div>
+              <div class="stat-label">Pending Review</div>
+            </div>
+          </div>
+
+          <div class="stat-card stat-progress">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stud-stat-progress">0</div>
+              <div class="stat-label">Under Investigation</div>
+            </div>
+          </div>
+
+          <div class="stat-card stat-resolved">
+            <div class="stat-icon">✓</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stud-stat-resolved">0</div>
+              <div class="stat-label">Resolved by College</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 4: My Submitted Complaints Table -->
+      <section class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span class="portal-badge badge-student-portal">Module 4 (Student View)</span>
+            <h3 style="font-size: 1.2rem; color: var(--primary-navy);">My Submitted Complaints Ledger</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">All grievances lodged under your University Roll Number.</p>
+          </div>
+          <a href="student-submit.html" class="btn btn-student btn-sm">+ Lodge Complaint</a>
+        </div>
+
+        <div class="table-responsive" style="border: none; border-radius: 0;">
+          <table class="complaints-table">
+            <thead>
+              <tr>
+                <th>Complaint ID</th>
+                <th>Subject & Description</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Date Lodged</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="my-complaints-table-body">
+              <!-- Dynamically populated via js/student.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+        &copy; 2026 Student Complaint Management System &bull; Student Portal &bull; Group 7 Project Submission
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>

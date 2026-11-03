@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Complaint Management System | Group 7</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top System Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div>GROUP 7 &bull; Student Grievance Redressal & Institutional Management System</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">
+          <h1>Student Grievance Portal</h1>
+          <p>Group 7 Dual-Portal System</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="student-dashboard.html" class="nav-link">Student Portal</a></li>
+        <li><a href="admin-dashboard.html" class="nav-link">Management Portal</a></li>
+        <li><a href="student-track.html" class="nav-link">Track Complaint</a></li>
+      </ul>
+
+      <!-- User Profile / Login Session Widget -->
+      <div id="user-session-widget"></div>
+    </div>
+  </header>
+
+  <!-- Module 1: Home Page -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Hero Header -->
+      <div style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #2563eb 100%); color: #ffffff; border-radius: var(--radius-lg); padding: 44px; margin-bottom: 36px; box-shadow: var(--shadow-lg);">
+        <span class="badge-tag" style="background: rgba(255, 255, 255, 0.2); margin-bottom: 12px; display: inline-block;">Official Grievance Management Platform</span>
+        <h2 style="font-size: 2.3rem; font-weight: 800; line-height: 1.2; margin-bottom: 12px;">Separated Student & Administrative Portals</h2>
+        <p style="font-size: 1.05rem; opacity: 0.9; max-width: 750px; margin-bottom: 24px;">
+          Empowering students to voice grievances and track resolutions in real-time, while providing college administrators with institutional tools to verify, investigate, and rectify issues.
+        </p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="login.html?role=student" class="btn btn-student" style="padding: 12px 24px;">
+            👤 Enter Student Portal
+          </a>
+          <a href="login.html?role=admin" class="btn btn-admin" style="padding: 12px 24px;">
+            🛡️ Enter Management Portal
+          </a>
+          <a href="student-track.html" class="btn btn-secondary" style="padding: 12px 24px;">
+            🔍 Fast Track by ID
+          </a>
+        </div>
+      </div>
+
+      <!-- Campus Grievance Metrics (Module 1) -->
+      <section style="margin-bottom: 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+          <div>
+            <span class="portal-badge badge-student-portal">Module 1: Portal Overview</span>
+            <h3 style="font-size: 1.35rem; color: var(--primary-navy);">Campus Grievance Health & Metrics</h3>
+          </div>
+        </div>
+
+        <div class="grid-cols-4">
+          <div class="stat-card stat-total">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+              <div class="stat-value" id="home-stat-total">0</div>
+              <div class="stat-label">Total Lodged Complaints</div>
+            </div>
+          </div>
+
+          <div class="stat-card stat-pending">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+              <div class="stat-value" id="home-stat-pending">0</div>
+              <div class="stat-label">Pending Review</div>
+            </div>
+          </div>
+
+          <div class="stat-card stat-progress">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-info">
+              <div class="stat-value" id="home-stat-progress">0</div>
+              <div class="stat-label">Under Investigation</div>
+            </div>
+          </div>
+
+          <div class="stat-card stat-resolved">
+            <div class="stat-icon">✓</div>
+            <div class="stat-info">
+              <div class="stat-value" id="home-stat-resolved">0</div>
+              <div class="stat-label">Resolved Issues</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Two Separated Portals Showcase -->
+      <section style="margin-bottom: 36px;">
+        <h3 style="font-size: 1.35rem; color: var(--primary-navy); margin-bottom: 18px;">Choose Your Access Gateway</h3>
+
+        <div class="grid-cols-2">
+
+          <!-- Student Portal Card -->
+          <div class="portal-card student-card">
+            <div>
+              <div class="portal-card-icon">🎓</div>
+              <span class="portal-badge badge-student-portal">Student Access</span>
+              <h3 style="font-size: 1.45rem; color: var(--student-primary); margin: 8px 0 12px 0;">Student Grievance Portal</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 18px;">
+                Designed specifically for enrolled students:
+              </p>
+              <ul style="color: var(--text-main); font-size: 0.9rem; margin-left: 20px; margin-bottom: 24px; line-height: 1.8;">
+                <li><strong>Modules 2 & 3:</strong> Fill student details & lodge complaints with auto-generated ID.</li>
+                <li><strong>Module 4 (Personal):</strong> Review "My Submitted Complaints" ledger and live progress.</li>
+                <li><strong>Module 6:</strong> Track any grievance via 3-stage visual progress stepper.</li>
+                <li>Secure login via University Roll Number.</li>
+              </ul>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <a href="login.html?role=student" class="btn btn-student" style="flex: 2;">
+                Student Login / Register &rarr;
+              </a>
+              <button onclick="fillAndGoStudent()" class="btn btn-secondary" style="flex: 1;" title="One-click demo login as Aarav Sharma">
+                Demo Student
+              </button>
+            </div>
+          </div>
+
+          <!-- Management Portal Card -->
+          <div class="portal-card admin-card">
+            <div>
+              <div class="portal-card-icon">🛡️</div>
+              <span class="portal-badge badge-admin-portal">Administrative Access</span>
+              <h3 style="font-size: 1.45rem; color: var(--admin-primary); margin: 8px 0 12px 0;">Management & Staff Portal</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 18px;">
+                Equipped for Department Heads, Wardens, and Administrative Officers:
+              </p>
+              <ul style="color: var(--text-main); font-size: 0.9rem; margin-left: 20px; margin-bottom: 24px; line-height: 1.8;">
+                <li><strong>Module 4 (Institutional):</strong> Comprehensive ledger of all complaints across departments.</li>
+                <li><strong>Module 5:</strong> Transition statuses (Pending, In Progress, Resolved) with action notes.</li>
+                <li><strong>Module 6:</strong> Search and audit any student complaint.</li>
+                <li>Departmental filter and administrative analytics.</li>
+              </ul>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <a href="login.html?role=admin" class="btn btn-admin" style="flex: 2;">
+                Management Login &rarr;
+              </a>
+              <button onclick="fillAndGoAdmin()" class="btn btn-secondary" style="flex: 1;" title="One-click demo login as Admin">
+                Demo Admin
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Grievance Policy Information -->
+      <section class="card">
+        <h3 style="font-size: 1.2rem; color: var(--primary-navy); margin-bottom: 12px;">Institutional Grievance Policy & Redressal Flow</h3>
+        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+          Our multi-tiered grievance redressal mechanism ensures that every concern submitted by a student receives prompt administrative attention. Complaints are acknowledged immediately with a unique Complaint ID, evaluated by departmental grievance coordinators, and resolved in accordance with institutional charters.
+        </p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <span class="badge badge-pending">⏳ Step 1: Submission & Initial Review</span>
+          <span class="badge badge-progress">🔄 Step 2: Investigation & Action by Department</span>
+          <span class="badge badge-resolved">✓ Step 3: Resolution & Verification</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 4px;">Group 7 &bull; Student Complaint Management System</h4>
+          <p style="font-size: 0.85rem;">Separated Student & Management Portal Architecture.</p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <a href="login.html?role=student" style="color: #93c5fd; text-decoration: none;">Student Portal</a>
+          <span style="color: #475569;">|</span>
+          <a href="login.html?role=admin" style="color: #c4b5fd; text-decoration: none;">Management Portal</a>
+          <span style="color: #475569;">|</span>
+          <a href="student-track.html" style="color: #cbd5e1; text-decoration: none;">Search Complaint</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Student Complaint Management System (v2) &bull; Pure HTML5, CSS3, JavaScript, PHP & MySQL
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const stats = await AppStorage.getStatistics();
+        document.getElementById('home-stat-total').innerText = stats.total;
+        document.getElementById('home-stat-pending').innerText = stats.pending;
+        document.getElementById('home-stat-progress').innerText = stats.in_progress;
+        document.getElementById('home-stat-resolved').innerText = stats.resolved;
+      } catch (e) {
+        console.warn(e);
+      }
+    });
+
+    async function fillAndGoStudent() {
+      try {
+        const student = await AppStorage.studentLogin('2026CSE014', 'student123');
+        Auth.setSession(student, 'student');
+        window.location.href = 'student-dashboard.html';
+      } catch (e) {
+        window.location.href = 'login.html?role=student';
+      }
+    }
+
+    async function fillAndGoAdmin() {
+      try {
+        const admin = await AppStorage.adminLogin('admin', 'admin123');
+        Auth.setSession(admin, 'admin');
+        window.location.href = 'admin-dashboard.html';
+      } catch (e) {
+        window.location.href = 'login.html?role=admin';
+      }
+    }
+  </script>
+</body>
+</html>

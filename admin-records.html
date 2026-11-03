@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Complaint Records | Management Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top System Bar -->
+  <div class="top-bar" style="background: #1e1b4b;">
+    <div class="container">
+      <div>GROUP 7 &bull; Institutional Grievance Redressal (Administrative Management Area)</div>
+      <div id="system-status-indicator" class="badge-tag">Connecting...</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="admin-dashboard.html" class="brand">
+        <div class="brand-icon admin-theme">🛡️</div>
+        <div class="brand-text">
+          <h1>Management Portal</h1>
+          <p>Institutional Grievance Governance</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="admin-dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="admin-records.html" class="nav-link admin-active">Complaint Records</a></li>
+        <li><a href="admin-update.html" class="nav-link">Update Status</a></li>
+        <li><a href="admin-search.html" class="nav-link">Search & Audit</a></li>
+        <li><a href="index.html" class="nav-link">Main Portal</a></li>
+      </ul>
+
+      <div id="user-session-widget"></div>
+    </div>
+  </header>
+
+  <!-- Records Main (Module 4) -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <span class="portal-badge badge-admin-portal">Module 4 &bull; Administrative Ledger</span>
+          <h2>Central Complaint Ledger</h2>
+          <p>Complete campus-wide record of student grievances, department allocations, and current status lifecycles.</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="admin-update.html" class="btn btn-admin btn-sm">✏️ Status Workflow Tool</a>
+        </div>
+      </div>
+
+      <!-- Controls: Filters & Search -->
+      <div class="card" style="padding: 16px 20px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+          
+          <div style="min-width: 280px; flex: 1;">
+            <input type="text" id="admin-search-input" class="form-control" placeholder="Search by ID, student name, roll number, or keywords...">
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <label for="admin-filter-status" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Status:</label>
+            <select id="admin-filter-status" class="form-control" style="width: auto; padding: 8px 12px;">
+              <option value="All">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+
+            <label for="admin-filter-category" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-left: 6px;">Category:</label>
+            <select id="admin-filter-category" class="form-control" style="width: auto; padding: 8px 12px;">
+              <option value="All">All Categories</option>
+              <option value="Academic">Academic</option>
+              <option value="Infrastructure & Lab">Infrastructure & Lab</option>
+              <option value="Hostel & Mess">Hostel & Mess</option>
+              <option value="Library">Library</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Administration & Fees">Administration & Fees</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <span id="admin-records-count" class="badge badge-category" style="font-weight: 700; margin-left: 6px;">Loading...</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Module 4 All Complaints Table -->
+      <div class="table-responsive">
+        <table class="complaints-table">
+          <thead>
+            <tr>
+              <th>Complaint ID</th>
+              <th>Student Particulars (Name, Roll, Program, Email)</th>
+              <th>Subject & Description</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Date Lodged</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-records-tbody">
+            <!-- Dynamically populated via js/admin.js -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Module 5: Quick Status Update Modal for Administrators -->
+  <div id="admin-update-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header" style="background: var(--admin-light);">
+        <h3 style="color: var(--admin-primary);">Update Complaint Status (Module 5)</h3>
+        <button class="modal-close" onclick="closeAdminUpdateModal()">&times;</button>
+      </div>
+      <form id="admin-quick-update-form">
+        <div class="modal-body">
+          <input type="hidden" id="modal-update-id">
+
+          <div style="margin-bottom: 16px;">
+            <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Modifying Record:</div>
+            <div id="modal-update-id-label" style="font-size: 1.3rem; font-weight: 800; color: var(--admin-primary); font-family: monospace;">CMP-XXXX</div>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-update-status">New Resolution Status <span class="required">*</span></label>
+            <select id="modal-update-status" class="form-control admin-focus" required>
+              <option value="Pending">⏳ Pending (Under Initial Verification)</option>
+              <option value="In Progress">🔄 In Progress (Department Action Underway)</option>
+              <option value="Resolved">✓ Resolved (Rectified & Closed)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-update-remarks">Official Action Remarks / Notes for Student</label>
+            <textarea id="modal-update-remarks" class="form-control admin-focus" rows="3" placeholder="e.g. Work order issued to IT department; replacement hardware arrived."></textarea>
+            <div class="form-hint">These remarks will be displayed in the student's status tracking view.</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAdminUpdateModal()">Cancel</button>
+          <button type="submit" id="modal-update-save-btn" class="btn btn-admin">Save Status Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+        &copy; 2026 Student Complaint Management System &bull; Module 4 Central Ledger &bull; Group 7 Project Submission
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
